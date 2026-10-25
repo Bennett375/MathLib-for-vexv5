@@ -1,4 +1,4 @@
-#include "solve_models.hpp"
+#include "mathlib/linalg/solve_models.hpp"
 
 #include <algorithm>
 #include <cmath>

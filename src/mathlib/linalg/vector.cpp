@@ -1,4 +1,4 @@
-#include "vector.hpp"
+#include "mathlib/linalg/vector.hpp"
 
 #include <algorithm>
 #include <cmath>

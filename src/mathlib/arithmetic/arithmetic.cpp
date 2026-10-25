@@ -1,4 +1,4 @@
-#include "arithmetic.hpp"
+#include "mathlib/arithmetic/arithmetic.hpp"
 
 #include <cmath>
 

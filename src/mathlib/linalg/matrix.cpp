@@ -1,4 +1,4 @@
-#include "matrix.hpp"
+#include "mathlib/linalg/matrix.hpp"
 
 #include <cmath>
 #include <limits>

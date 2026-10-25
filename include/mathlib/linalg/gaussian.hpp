@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "matrix.hpp"
-#include "vector.hpp"
-#include "solve_models.hpp"
+#include "mathlib/linalg/matrix.hpp"
+#include "mathlib/linalg/vector.hpp"
+#include "mathlib/linalg/solve_models.hpp"
 
 namespace math {
 namespace linalg {

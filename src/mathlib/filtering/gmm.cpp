@@ -1,5 +1,5 @@
 
-#include "gmm.hpp"
+#include "mathlib/filtering/gmm.hpp"
 
 #include <algorithm>
 #include <cmath>

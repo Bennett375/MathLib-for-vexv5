@@ -1,6 +1,6 @@
 #pragma once
 
-#include "matrix.hpp"
+#include "mathlib/linalg/matrix.hpp"
 
 #include <cstddef>
 #include <initializer_list>

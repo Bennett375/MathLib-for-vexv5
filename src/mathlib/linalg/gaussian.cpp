@@ -1,5 +1,5 @@
 
-#include "gaussian.hpp"
+#include "mathlib/linalg/gaussian.hpp"
 
 #include <cmath>
 #include <limits>

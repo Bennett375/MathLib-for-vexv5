@@ -1,4 +1,4 @@
-#include "point.hpp"
+#include "mathlib/geometry/point.hpp"
 
 #include <cmath>
 
