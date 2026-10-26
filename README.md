@@ -21,7 +21,7 @@ View a comprehensive API explanation [here](https://bennett375.github.io/mathlib
 
 ## Help?
 
-Open an issue on the [github repository](https://github.com/Bennett375/mathlib-docs/issues)
+Open an issue on the [github repository](https://github.com/Bennett375/MathLib-for-vexv5/issues)
 
 ## Misc
 
