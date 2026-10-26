@@ -7,9 +7,7 @@
 namespace math {
 namespace linalg {
 
-// -----------------------------------------------------------------------------
 // Constructors
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Vector<T>::Vector(std::size_t size)
@@ -30,9 +28,7 @@ Vector<T>::Vector(std::initializer_list<T> values)
     }
 }
 
-// -----------------------------------------------------------------------------
 // Size
-// -----------------------------------------------------------------------------
 
 template <typename T>
 std::size_t Vector<T>::size() const {
@@ -60,9 +56,7 @@ const T& Vector<T>::operator()(std::size_t row) const {
     return this->Matrix<T>::at(row, 0);
 }
 
-// -----------------------------------------------------------------------------
 // Validation helper
-// -----------------------------------------------------------------------------
 
 template <typename T>
 static void require_same_size(
@@ -75,9 +69,7 @@ static void require_same_size(
     }
 }
 
-// -----------------------------------------------------------------------------
 // Arithmetic
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Vector<T> Vector<T>::operator+(const Vector<T>& other) const {
@@ -179,9 +171,7 @@ Vector<T> operator*(const T& scalar, const Vector<T>& vector) {
     return vector * scalar;
 }
 
-// -----------------------------------------------------------------------------
 // Matrix-vector product
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Vector<T> Matrix<T>::operator*(const Vector<T>& other) const {
@@ -205,10 +195,8 @@ Vector<T> Matrix<T>::operator*(const Vector<T>& other) const {
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Dot product
 // Accumulates in double to reduce intermediate precision loss.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 double dot(const Vector<T>& vec1, const Vector<T>& vec2) {
@@ -224,10 +212,8 @@ double dot(const Vector<T>& vec1, const Vector<T>& vec2) {
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Cross product
 // Defined for three-dimensional vectors.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Vector<T> cross(const Vector<T>& vec1, const Vector<T>& vec2) {
@@ -251,9 +237,7 @@ Vector<T> cross(const Vector<T>& vec1, const Vector<T>& vec2) {
     };
 }
 
-// -----------------------------------------------------------------------------
 // Norms
-// -----------------------------------------------------------------------------
 
 template <typename T>
 double Vector<T>::squared_norm() const {
@@ -265,10 +249,8 @@ double Vector<T>::norm() const {
     return std::sqrt(squared_norm());
 }
 
-// -----------------------------------------------------------------------------
 // Normalization
 // Returns a double-precision vector to preserve fractional components.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Vector<double> Vector<T>::normalized() const {
@@ -289,9 +271,7 @@ Vector<double> Vector<T>::normalized() const {
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Distance
-// -----------------------------------------------------------------------------
 
 template <typename T>
 double Vector<T>::distance_to(const Vector<T>& other) const {
@@ -310,10 +290,8 @@ double Vector<T>::distance_to(const Vector<T>& other) const {
     return std::sqrt(sum);
 }
 
-// -----------------------------------------------------------------------------
 // Angle between vectors
 // Returns radians in [0, pi].
-// -----------------------------------------------------------------------------
 
 template <typename T>
 double Vector<T>::angle_between(const Vector<T>& other) const {
@@ -335,10 +313,8 @@ double Vector<T>::angle_between(const Vector<T>& other) const {
     return std::acos(cosine);
 }
 
-// -----------------------------------------------------------------------------
 // Projection
 // Projects this vector onto 'other'.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Vector<double> Vector<T>::projection_onto(
@@ -365,9 +341,7 @@ Vector<double> Vector<T>::projection_onto(
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Diagonal matrix
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Matrix<T> Vector<T>::mat_from_diag() const {
@@ -381,18 +355,14 @@ Matrix<T> Vector<T>::mat_from_diag() const {
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Factory
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Vector<T> Vector<T>::zeros(std::size_t size) {
     return Vector<T>(size, T());
 }
 
-// -----------------------------------------------------------------------------
 // Explicit instantiations
-// -----------------------------------------------------------------------------
 
 template class Vector<int>;
 template class Vector<float>;

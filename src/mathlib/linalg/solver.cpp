@@ -12,10 +12,8 @@ namespace solver {
 
 namespace detail {
 
-// -----------------------------------------------------------------------------
 // Internal numerical helpers
 // Use double precision for intermediate calculations.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 double value_as_double(const T& value) {
@@ -149,12 +147,10 @@ SolveResult<T> make_failure(SolveStatus status) {
 
 } // namespace detail
 
-// -----------------------------------------------------------------------------
 // LU decomposition
 //
 // PA = LU
 // permutation[i] identifies the original row occupying row i of PA.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 LUResult<T> lu_decompose(
@@ -260,9 +256,7 @@ LUResult<T> lu_decompose(
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Solve using LU factors
-// -----------------------------------------------------------------------------
 
 template <typename T>
 SolveResult<T> solve_lu(
@@ -353,11 +347,9 @@ SolveResult<T> solve_lu(
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Cholesky decomposition
 //
 // A = LL^T. Requires a symmetric positive-definite matrix.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 CholeskyResult<T> cholesky_decompose(
@@ -447,9 +439,7 @@ CholeskyResult<T> cholesky_decompose(
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Solve using Cholesky factors
-// -----------------------------------------------------------------------------
 
 template <typename T>
 SolveResult<T> solve_cholesky(
@@ -526,11 +516,9 @@ SolveResult<T> solve_cholesky(
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // QR decomposition using modified Gram-Schmidt.
 //
 // Q is m x n and R is n x n. This implementation requires m >= n.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 QRResult<T> qr_decompose(
@@ -643,10 +631,8 @@ QRResult<T> qr_decompose(
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Least-squares solve using QR
 // Minimizes ||Ax - b||_2 when A has full column rank.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 SolveResult<T> solve_qr(
@@ -722,9 +708,7 @@ SolveResult<T> solve_qr(
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // High-level vector solve
-// -----------------------------------------------------------------------------
 
 template <typename T>
 SolveResult<T> Solver<T>::solve(
@@ -884,10 +868,8 @@ SolveResult<T> Solver<T>::solve(
     return detail::make_failure<T>(SolveStatus::UnsupportedMethod);
 }
 
-// -----------------------------------------------------------------------------
 // Solve multiple right-hand sides: AX = B
 // Throws if the selected solver cannot solve the system.
-// -----------------------------------------------------------------------------
 
 template <typename T>
 linalg::Matrix<T> Solver<T>::solve(
@@ -927,9 +909,7 @@ linalg::Matrix<T> Solver<T>::solve(
     return X;
 }
 
-// -----------------------------------------------------------------------------
 // Determinant using LU
-// -----------------------------------------------------------------------------
 
 template <typename T>
 T determinant(
@@ -956,9 +936,7 @@ T determinant(
     return static_cast<T>(det);
 }
 
-// -----------------------------------------------------------------------------
 // Numerical rank using QR
-// -----------------------------------------------------------------------------
 
 template <typename T>
 std::size_t numerical_rank(
@@ -974,9 +952,7 @@ std::size_t numerical_rank(
     return factors.rank;
 }
 
-// -----------------------------------------------------------------------------
 // Residual norm: ||Ax - b||_2
-// -----------------------------------------------------------------------------
 
 template <typename T>
 double residual_norm(
@@ -1009,9 +985,7 @@ double residual_norm(
     return std::sqrt(sum);
 }
 
-// -----------------------------------------------------------------------------
 // Explicit instantiations
-// -----------------------------------------------------------------------------
 
 // Explicit instantiations: int
 template LUResult<int> lu_decompose<int>(

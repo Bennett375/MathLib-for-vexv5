@@ -9,9 +9,7 @@ namespace math {
 namespace filters {
 namespace {
 
-// -----------------------------------------------------------------------------
 // Validation
-// -----------------------------------------------------------------------------
 
 bool symmetric_matrix(const linalg::Matrix<double>& A) {
     if (A.rows() != A.cols()) {
@@ -49,12 +47,10 @@ linalg::Matrix<double> symmetrize(const linalg::Matrix<double>& A) {
     return result;
 }
 
-// -----------------------------------------------------------------------------
 // Cholesky factorization and solves
 //
 // These helpers solve S*x = b without explicitly forming inverse(S).
 // S must be symmetric positive definite.
-// -----------------------------------------------------------------------------
 
 solver::SolveStatus cholesky_decompose(
     const linalg::Matrix<double>& A,
@@ -228,9 +224,7 @@ bool valid_covariance_input(const linalg::Matrix<double>& A) {
 
 } // anonymous namespace
 
-// -----------------------------------------------------------------------------
 // KalmanFilter
-// -----------------------------------------------------------------------------
 
 KalmanFilter::KalmanFilter()
     : distribution_(),

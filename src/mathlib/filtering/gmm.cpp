@@ -216,11 +216,6 @@ double vector_squared_norm(const linalg::Vector<double>& x) {
 
 } // namespace
 
-
-// -----------------------------------------------------------------------------
-// Construction and initialization
-// -----------------------------------------------------------------------------
-
 GaussianMixtureFilter::GaussianMixtureFilter(
     const GMMOptions& options)
     : options_(options) {}
@@ -290,11 +285,9 @@ Status GaussianMixtureFilter::initialize(
 }
 
 
-// -----------------------------------------------------------------------------
 // Prediction
 // x' = F*x
 // P' = F*P*F^T + Q
-// -----------------------------------------------------------------------------
 
 Status GaussianMixtureFilter::predict(
     const linalg::Matrix<double>& F,
@@ -372,7 +365,6 @@ Status GaussianMixtureFilter::predict(
 }
 
 
-// -----------------------------------------------------------------------------
 // Measurement update
 //
 // Innovation: r = z - H*mu
@@ -380,7 +372,6 @@ Status GaussianMixtureFilter::predict(
 // Gain: K = P*H^T*S^-1
 // Mean: mu' = mu + K*r
 // Covariance uses Joseph form.
-// -----------------------------------------------------------------------------
 
 Status GaussianMixtureFilter::update(
     const linalg::Vector<double>& measurement,
@@ -566,9 +557,7 @@ Status GaussianMixtureFilter::update(
 }
 
 
-// -----------------------------------------------------------------------------
 // Weight normalization
-// -----------------------------------------------------------------------------
 
 void GaussianMixtureFilter::normalize_weights() {
     double total = 0.0;
@@ -587,9 +576,7 @@ void GaussianMixtureFilter::normalize_weights() {
 }
 
 
-// -----------------------------------------------------------------------------
 // Merge similar components
-// -----------------------------------------------------------------------------
 
 Status GaussianMixtureFilter::merge_similar_components() {
     if (components_.size() < 2) {
@@ -722,9 +709,7 @@ Status GaussianMixtureFilter::merge_similar_components() {
 }
 
 
-// -----------------------------------------------------------------------------
 // Dynamic pruning
-// -----------------------------------------------------------------------------
 
 Status GaussianMixtureFilter::prune() {
     if (components_.empty()) {
@@ -801,14 +786,12 @@ Status GaussianMixtureFilter::prune() {
 }
 
 
-// -----------------------------------------------------------------------------
 // Mixture estimate
 //
 // Mean = sum(w_i * mu_i)
 //
 // Covariance = sum(w_i * [P_i +
 //              (mu_i - mean)(mu_i - mean)^T])
-// -----------------------------------------------------------------------------
 
 GMMEstimate GaussianMixtureFilter::estimate() const {
     if (components_.empty()) {
@@ -874,9 +857,7 @@ GMMEstimate GaussianMixtureFilter::estimate() const {
 }
 
 
-// -----------------------------------------------------------------------------
 // Accessors
-// -----------------------------------------------------------------------------
 
 std::size_t GaussianMixtureFilter::component_count() const {
     return components_.size();

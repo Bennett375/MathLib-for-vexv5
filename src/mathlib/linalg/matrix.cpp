@@ -66,9 +66,7 @@ bool Matrix<T>::is_square() const {
     return rows_ == cols_;
 }
 
-// -----------------------------------------------------------------------------
 // Element access
-// -----------------------------------------------------------------------------
 
 template <typename T>
 std::size_t Matrix<T>::index(
@@ -114,9 +112,7 @@ const T& Matrix<T>::at(
     return data_[index(row, col)];
 }
 
-// -----------------------------------------------------------------------------
 // Data access
-// -----------------------------------------------------------------------------
 
 template <typename T>
 const std::vector<T>& Matrix<T>::data() const {
@@ -130,9 +126,7 @@ void Matrix<T>::fill(const T& value) {
     }
 }
 
-// -----------------------------------------------------------------------------
 // Validation
-// -----------------------------------------------------------------------------
 
 template <typename T>
 void Matrix<T>::require_same_dimensions(
@@ -144,9 +138,7 @@ void Matrix<T>::require_same_dimensions(
     }
 }
 
-// -----------------------------------------------------------------------------
 // Matrix addition and subtraction
-// -----------------------------------------------------------------------------
 
 template <typename T>
 Matrix<T> Matrix<T>::operator+(
