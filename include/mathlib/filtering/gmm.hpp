@@ -2,6 +2,7 @@
 
 #include "mathlib/linalg/gaussian.hpp"
 #include "mathlib/linalg/solve_models.hpp"
+#include "mathlib/units/numbers.hpp"
 
 #include <cstddef>
 #include <vector>
@@ -11,7 +12,7 @@ namespace filters {
 
 struct GaussianComponent {
     linalg::Gaussian distribution;
-    double weight;
+    real weight;
 
     GaussianComponent()
         : weight(0.0) {}
@@ -19,9 +20,9 @@ struct GaussianComponent {
 
 struct GMMOptions {
     std::size_t max_components;
-    double min_weight;
-    double merge_threshold;
-    double covariance_floor;
+    real min_weight;
+    real merge_threshold;
+    real covariance_floor;
 
     GMMOptions()
         : max_components(8),

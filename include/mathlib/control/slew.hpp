@@ -1,8 +1,10 @@
 #pragma once
 
+#include "mathlib/units/numbers.hpp"
+
 
 namespace math {
 namespace control {
-    double apply_slew(double prev_inp, double commanded_inp, double dt, double slew_rate = 1.5);
+    real apply_slew(real prev_inp, real commanded_inp, real dt, real slew_rate = 1.5);
 }
 }

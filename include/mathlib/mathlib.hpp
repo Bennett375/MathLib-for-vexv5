@@ -3,6 +3,7 @@
 // Mathlib Umbrella Header
 #include "mathlib/arithmetic/arithmetic.hpp"
 #include "mathlib/arithmetic/random.hpp"
+#include "mathlib/control/aabc.hpp"
 #include "mathlib/control/pid.hpp"
 #include "mathlib/filtering/ekf.hpp"
 #include "mathlib/filtering/gmm.hpp"
@@ -14,4 +15,10 @@
 #include "mathlib/linalg/gaussian.hpp"
 #include "mathlib/linalg/matrix.hpp"
 #include "mathlib/linalg/solve_models.hpp"
+#include "mathlib/linalg/sparse_matrix.hpp"
+#include "mathlib/linalg/sparse_vector.hpp"
 #include "mathlib/linalg/vector.hpp"
+#include "mathlib/units/angleunit.hpp"
+#include "mathlib/units/coordinate.hpp"
+#include "mathlib/units/numbers.hpp"
+#include "mathlib/units/powerunit.hpp"

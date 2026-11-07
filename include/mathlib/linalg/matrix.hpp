@@ -1,6 +1,7 @@
 #pragma once
 
 #include "mathlib/abstract/object.hpp"
+#include "mathlib/linalg/matrix_storage.hpp"
 
 #include <cstddef>
 #include <initializer_list>
@@ -13,8 +14,11 @@ template <typename T>
 class Vector;
 
 template <typename T>
-class Matrix : public MathObj<Matrix<T>> {
+class Matrix : public MathObj<Matrix<T>>,
+               public MatrixStorage<T, detail::DenseMatrixStorage<T>> {
 public:
+    typedef MatrixStorage<T, detail::DenseMatrixStorage<T>> Base;
+
     // Constructors
     Matrix();
     Matrix(std::size_t rows, std::size_t cols);
@@ -24,6 +28,7 @@ public:
     // Dimensions
     std::size_t rows() const;
     std::size_t cols() const;
+    std::size_t size() const;
     bool empty() const;
     bool is_square() const;
 
@@ -37,6 +42,7 @@ public:
     // Data access
     const std::vector<T>& data() const;
     void fill(const T& value);
+    double sum() const;
 
     // Matrix arithmetic
     Matrix<T> operator+(const Matrix<T>& other) const;
@@ -61,9 +67,9 @@ public:
     static Matrix<T> zeros(std::size_t rows, std::size_t cols);
 
 private:
-    std::size_t rows_;
-    std::size_t cols_;
-    std::vector<T> data_;
+    using Base::rows_;
+    using Base::cols_;
+    using Base::data_;
 
     std::size_t index(std::size_t row, std::size_t col) const;
     void require_same_dimensions(const Matrix<T>& other) const;
@@ -104,4 +110,3 @@ struct conversion<linalg::Matrix<double>, std::string> {
 };
 
 } // namespace math
-

@@ -32,12 +32,12 @@ Vector<T>::Vector(std::initializer_list<T> values)
 
 template <typename T>
 std::size_t Vector<T>::size() const {
-    return this->rows();
+    return this->rows_;
 }
 
 template <typename T>
 bool Vector<T>::empty() const {
-    return this->rows() == 0;
+    return this->rows_ == 0;
 }
 
 template <typename T>
@@ -45,7 +45,7 @@ T& Vector<T>::operator()(std::size_t row) {
     if (row >= size()) {
         throw std::out_of_range("Vector index out of range");
     }
-    return this->Matrix<T>::at(row, 0);
+    return this->data_[row];
 }
 
 template <typename T>
@@ -53,7 +53,22 @@ const T& Vector<T>::operator()(std::size_t row) const {
     if (row >= size()) {
         throw std::out_of_range("Vector index out of range");
     }
-    return this->Matrix<T>::at(row, 0);
+    return this->data_[row];
+}
+
+template <typename T>
+const std::vector<T>& Vector<T>::data() const {
+    return static_cast<const std::vector<T>&>(this->data_);
+}
+
+template <typename T>
+void Vector<T>::fill(const T& value) {
+    this->fill_storage(value);
+}
+
+template <typename T>
+double Vector<T>::sum() const {
+    return this->storage_sum();
 }
 
 // Validation helper

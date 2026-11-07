@@ -9,6 +9,9 @@ Mathlib supports a high level, simple, and easy to understand abstraction of var
 ## Features:
 
 * Matrices and Vectors of an arbitrary numeric type
+* Sparse matrices and vectors with sparse arithmetic and matrix-vector/matrix-matrix products
+* Type-safe scalar, angle, field, and motor-power units (`real`, `angle<>`, `fieldunit<>`, `powerunit<>`) with percent, RPM, and voltage scales
+* Angular acceleration-based control using `angle<>`, `real`, and `powerunit<>` for headings, rates, and motor commands
 * Highly optimized algorithms for Matrix operations
 * Supports predefined and user-definable type conversions (e.g. Point -> Vector)
 * Algebraic Solution Engine, supporting LU, QR, and Cholesky decomposition and solving

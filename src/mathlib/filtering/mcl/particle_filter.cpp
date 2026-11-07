@@ -41,7 +41,7 @@ bool valid_options(const ParticleFilterOptions& options) {
 // until validation succeeds.
 SolveStatus normalize_population(
     std::vector<Particle>& particles,
-    double min_weight
+    real min_weight
 ) {
     if (particles.empty()) {
         return SolveStatus::InvalidDimensions;
@@ -550,7 +550,7 @@ ParticleEstimate ParticleFilter::estimate() const {
     return result;
 }
 
-double ParticleFilter::effective_sample_size() const {
+real ParticleFilter::effective_sample_size() const {
     if (!initialized_ || particles_.empty()) {
         return 0.0;
     }

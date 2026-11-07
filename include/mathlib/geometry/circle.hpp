@@ -2,6 +2,7 @@
 
 #include "mathlib/abstract/object.hpp"
 #include "mathlib/geometry/point.hpp"
+#include "mathlib/units/coordinate.hpp"
 
 
 #include <vector>
@@ -11,14 +12,15 @@ namespace math {
 class Circle : public MathObj<Circle> {
 public:
     Point center;
-    double radius;
-    Circle(const Point& center_, const double& radius_): center(center_), radius(radius_) {}
+    fieldunit<> radius;
+    Circle(const Point& center_, const fieldunit<>& radius_): center(center_), radius(radius_) {}
 };
 
 template <>
 struct conversion<Circle, std::string> {
     static std::string convert(const Circle& circle) {
-        return "Circle at: " + circle.center.as<std::string>() + " with radius: " + std::to_string(circle.radius);
+        return "Circle at: " + circle.center.as<std::string>() +
+            " with radius: " + std::to_string(circle.radius.get_value());
     }
 };
 

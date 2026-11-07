@@ -2,6 +2,7 @@
 
 #include "mathlib/linalg/vector.hpp"
 #include "mathlib/abstract/object.hpp"
+#include "mathlib/units/numbers.hpp"
 
 namespace math {
 namespace filters {
@@ -9,12 +10,12 @@ namespace mcl {
 
 struct Particle : MathObj<Particle> {
     linalg::Vector<double> state;
-    double weight;
+    real weight;
 
     Particle(std::size_t dim)
         : state(dim, 0), weight(0.0) {}
 
-    Particle(const linalg::Vector<double>& x, double w)
+    Particle(const linalg::Vector<double>& x, real w)
         : state(x), weight(w) {}
 };
 
@@ -26,7 +27,7 @@ struct conversion<filters::mcl::Particle, std::string> {
     static std::string convert(const filters::mcl::Particle& particle) {
         return "Particle: " +
             conversion<linalg::Vector<double>, std::string>::convert(particle.state) +
-            " with weight: " + std::to_string(particle.weight);
+            " with weight: " + std::to_string(particle.weight.get_value());
     }
 };
 }

@@ -7,7 +7,7 @@ namespace control {
 namespace {
 
 // Branch-based clamp. Inlined here so the hot path makes no cross-TU calls.
-inline double clamp_to(double value, double lo, double hi) {
+inline real clamp_to(real value, real lo, real hi) {
     return value < lo ? lo : (value > hi ? hi : value);
 }
 
@@ -21,18 +21,20 @@ PIDController::PIDController(
       state_(),
       last_output_(0.0) {}
 
-double PIDController::update(double error, double dt) {
+real PIDController::update(real error, real dt) {
     // Reject bad samples without disturbing the controller state.
-    if (!std::isfinite(error) || !std::isfinite(dt) || dt <= 0.0) {
+    if (!std::isfinite(error.get_value()) ||
+        !std::isfinite(dt.get_value()) ||
+        dt <= 0.0) {
         return last_output_;
     }
 
     // Derivative: skipped on the first sample to avoid a derivative kick.
-    double derivative = 0.0;
+    real derivative = 0.0;
 
     if (state_.initialized) {
-        const double raw = (error - state_.previous_error) / dt;
-        const double alpha = options_.derivative_filter_alpha;
+        const real raw = (error - state_.previous_error) / dt;
+        const real alpha = options_.derivative_filter_alpha;
 
         // alpha >= 1 means no filtering, so skip the blend entirely.
         derivative = (alpha >= 1.0)
@@ -41,12 +43,12 @@ double PIDController::update(double error, double dt) {
               (1.0 - clamp_to(alpha, 0.0, 1.0)) * state_.filtered_derivative;
     } else {
         // Same blend as above with raw = 0.
-        const double alpha = clamp_to(options_.derivative_filter_alpha, 0.0, 1.0);
+        const real alpha = clamp_to(options_.derivative_filter_alpha, 0.0, 1.0);
         derivative = (1.0 - alpha) * state_.filtered_derivative;
     }
 
     // Integral with optional hard limit (0 disables the limit).
-    double integral = state_.integral + error * dt;
+    real integral = state_.integral + error * dt;
 
     if (options_.integral_limit > 0.0) {
         integral = clamp_to(
@@ -55,9 +57,9 @@ double PIDController::update(double error, double dt) {
 
     // P and D do not depend on the integral, so compute them once. The sum is
     // kept in P + I + D order so results match a sequential dot product.
-    const double p_term = gains_.kp * error;
-    const double d_term = gains_.kd * derivative;
-    double output = p_term + gains_.ki * integral + d_term;
+    const real p_term = gains_.kp * error;
+    const real d_term = gains_.kd * derivative;
+    real output = p_term + gains_.ki * integral + d_term;
 
     // Conditional-integration anti-windup.
     if ((output > options_.output_max && error > 0.0) ||
@@ -94,7 +96,7 @@ const PIDState& PIDController::state() const {
     return state_;
 }
 
-double PIDController::last_output() const {
+real PIDController::last_output() const {
     return last_output_;
 }
 

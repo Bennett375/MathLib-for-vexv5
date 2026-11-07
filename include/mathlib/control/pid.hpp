@@ -2,25 +2,27 @@
 
 #include <limits>
 
+#include "mathlib/units/numbers.hpp"
+
 namespace math {
 namespace control {
 
 struct PIDGains {
-    double kp;
-    double ki;
-    double kd;
+    real kp;
+    real ki;
+    real kd;
 
-    PIDGains(double p = 0.0,
-             double i = 0.0,
-             double d = 0.0)
+    PIDGains(real p = 0.0,
+             real i = 0.0,
+             real d = 0.0)
         : kp(p), ki(i), kd(d) {}
 };
 
 struct PIDOptions {
-    double integral_limit;
-    double output_min;
-    double output_max;
-    double derivative_filter_alpha;
+    real integral_limit;
+    real output_min;
+    real output_max;
+    real derivative_filter_alpha;
 
     PIDOptions()
         : integral_limit(0.0),
@@ -30,9 +32,9 @@ struct PIDOptions {
 };
 
 struct PIDState {
-    double integral;
-    double previous_error;
-    double filtered_derivative;
+    real integral;
+    real previous_error;
+    real filtered_derivative;
     bool initialized;
 
     PIDState()
@@ -48,20 +50,20 @@ public:
         const PIDGains& gains,
         const PIDOptions& options = PIDOptions());
 
-    double update(double error, double dt);
+    real update(real error, real dt);
     void reset();
 
     const PIDGains& gains() const;
     void set_gains(const PIDGains& gains);
 
     const PIDState& state() const;
-    double last_output() const;
+    real last_output() const;
 
 private:
     PIDGains gains_;
     PIDOptions options_;
     PIDState state_;
-    double last_output_;
+    real last_output_;
 };
 
 } // namespace control

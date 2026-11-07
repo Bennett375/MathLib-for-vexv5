@@ -4,47 +4,53 @@
 
 namespace math {
 
-double mean(const std::vector<double>& values) {
+real mean(const std::vector<double>& values) {
   if (values.empty()) {
-    return 0.0;
+    return real(0.0);
   }
   double total = 0.0;
   for (std::size_t i = 0; i < values.size(); ++i) {
     total += values[i];
   }
-  return total / static_cast<double>(values.size());
+  return real(total / static_cast<double>(values.size()));
 }
 
-double mean(double first, double second) {
-  return (first + second) / 2.0;
+real mean(real first, real second) {
+  return real((first.get_value() + second.get_value()) / 2.0);
 }
 
 int sign(int value) {
   return (value > 0) - (value < 0);
 }
 
-double sign(double value) {
-  return (value > 0.0) - (value < 0.0);
+real sign(double value) {
+  return real((value > 0.0) - (value < 0.0));
 }
 
-double clamp(double value, double minimum, double maximum) {
-  return std::max(minimum, std::min(maximum, value));
+real sign(real value) {
+  return sign(value.get_value());
 }
 
-double power(double base, double exponent) {
-  return std::pow(base, exponent);
+real clamp(real value, real minimum, real maximum) {
+  return real(std::max(minimum.get_value(),
+                       std::min(maximum.get_value(), value.get_value())));
 }
 
-double exp(double exponent) {
+real power(real base, real exponent) {
+  return real(std::pow(base.get_value(), exponent.get_value()));
+}
+
+real exp(real exponent) {
   return power(e, exponent);
 }
 
-double sqr(double value) {
-  return value * value;
+real sqr(real value) {
+  const double raw = value.get_value();
+  return real(raw * raw);
 }
 
-double sqrt(double value) {
-  return std::sqrt(value);
+real sqrt(real value) {
+  return real(std::sqrt(value.get_value()));
 }
 
 }

@@ -4,14 +4,16 @@
 
 #include <cstddef>
 #include <initializer_list>
+#include <vector>
 
 namespace math {
 namespace linalg {
 
 template <typename T>
-class Vector : public Matrix<T> {
+class Vector : public MathObj<Vector<T>>,
+               public MatrixStorage<T, detail::DenseMatrixStorage<T>> {
 public:
-    typedef Matrix<T> Base;
+    typedef MatrixStorage<T, detail::DenseMatrixStorage<T>> Base;
 
     explicit Vector(std::size_t size);
     Vector(std::size_t size, const T& initial_value);
@@ -23,6 +25,9 @@ public:
     T& operator()(std::size_t row);
     const T& operator()(std::size_t row) const;
 
+    const std::vector<T>& data() const;
+    void fill(const T& value);
+    double sum() const;
 
     Vector operator+(const Vector& other) const;
     Vector operator-(const Vector& other) const;
@@ -48,6 +53,10 @@ public:
     Matrix<T> mat_from_diag() const;
 
     static Vector zeros(std::size_t size);
+
+private:
+    using Base::rows_;
+    using Base::data_;
 };
 
 template <typename T>
@@ -91,7 +100,13 @@ typedef Vector<double> vec;
 template <>
 struct conversion<linalg::Vector<double>, std::string> {
     static std::string convert(const linalg::Vector<double>& vec) {
-        return conversion<linalg::Matrix<double>, std::string>::convert(vec);
+        std::string string;
+        string.append("|");
+        for (std::size_t i = 0; i < vec.size(); ++i) {
+            string.append(std::to_string(vec(i)));
+        }
+        string.append("|\n");
+        return string;
     }
 };
 } // namespace math

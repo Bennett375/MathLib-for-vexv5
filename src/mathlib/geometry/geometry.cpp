@@ -4,12 +4,13 @@
 #include <cmath>
 
 namespace math {
-double angle_error(double target, double current) {
-  double result = std::fmod(target - current + PI, TAU);
+angle<> angle_error(angle<> target, angle<> current) {
+  double result = std::fmod(
+      target.get_value() - current.get_value() + PI, TAU);
   if (result < 0.0) {
     result += TAU;
   }
-  return result - PI;
+  return angle<>(result - PI);
 }
 
 }

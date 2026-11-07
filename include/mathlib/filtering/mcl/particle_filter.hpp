@@ -5,6 +5,7 @@
 #include "mathlib/linalg/solve_models.hpp"
 #include "mathlib/filtering/mcl/particle.hpp"
 #include "mathlib/arithmetic/random.hpp"
+#include "mathlib/units/numbers.hpp"
 
 #include <cstddef>
 #include <functional>
@@ -16,8 +17,8 @@ namespace mcl {
 
 struct ParticleFilterOptions {
     std::size_t particle_count;
-    double resample_ess_ratio;
-    double min_weight;
+    real resample_ess_ratio;
+    real min_weight;
     bool resample_after_update;
 
     ParticleFilterOptions()
@@ -31,7 +32,7 @@ struct ParticleEstimate {
     solver::SolveStatus status;
     linalg::Vector<double> mean;
     linalg::Matrix<double> covariance;
-    double effective_sample_size;
+    real effective_sample_size;
 
     explicit ParticleEstimate(std::size_t n)
         : status(solver::SolveStatus::NumericalFailure),
@@ -94,7 +95,7 @@ public:
 
     ParticleEstimate estimate() const;
 
-    double effective_sample_size() const;
+    real effective_sample_size() const;
 
     std::size_t particle_count() const;
     std::size_t state_dim() const;

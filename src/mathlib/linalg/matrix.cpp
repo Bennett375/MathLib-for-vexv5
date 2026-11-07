@@ -10,39 +10,39 @@ namespace linalg {
 
 template <typename T>
 Matrix<T>::Matrix()
-    : rows_(0), cols_(0), data_() {}
+    : Base() {}
 
 template <typename T>
 Matrix<T>::Matrix(std::size_t rows, std::size_t cols)
-    : rows_(rows), cols_(cols), data_(rows * cols, T()) {}
+    : Base(rows, cols) {}
 
 template <typename T>
 Matrix<T>::Matrix(
     std::size_t rows,
     std::size_t cols,
     const T& initial_value)
-    : rows_(rows),
-      cols_(cols),
-      data_(rows * cols, initial_value) {}
+    : Base(rows, cols, initial_value) {}
 
 template <typename T>
 Matrix<T>::Matrix(
     std::initializer_list<std::initializer_list<T>> values)
-    : rows_(values.size()), cols_(0), data_() {
+    : Base(values.size(),
+           values.size() == 0 ? 0 : values.begin()->size()) {
 
-    if (values.size() == 0) {
-        return;
-    }
-
-    cols_ = values.begin()->size();
-
+    std::size_t row_index = 0;
     for (const auto& row : values) {
         if (row.size() != cols_) {
             throw std::invalid_argument(
                 "Matrix initializer rows must have equal lengths.");
         }
 
-        data_.insert(data_.end(), row.begin(), row.end());
+        std::size_t col_index = 0;
+        for (typename std::initializer_list<T>::const_iterator it =
+                 row.begin();
+             it != row.end(); ++it, ++col_index) {
+            (*this)(row_index, col_index) = *it;
+        }
+        ++row_index;
     }
 }
 
@@ -54,6 +54,11 @@ std::size_t Matrix<T>::rows() const {
 template <typename T>
 std::size_t Matrix<T>::cols() const {
     return cols_;
+}
+
+template <typename T>
+std::size_t Matrix<T>::size() const {
+    return cols_ * rows_;
 }
 
 template <typename T>
@@ -116,14 +121,17 @@ const T& Matrix<T>::at(
 
 template <typename T>
 const std::vector<T>& Matrix<T>::data() const {
-    return data_;
+    return static_cast<const std::vector<T>&>(data_);
 }
 
 template <typename T>
 void Matrix<T>::fill(const T& value) {
-    for (std::size_t i = 0; i < data_.size(); ++i) {
-        data_[i] = value;
-    }
+    this->fill_storage(value);
+}
+
+template <typename T>
+double Matrix<T>::sum() const {
+    return this->storage_sum();
 }
 
 // Validation
